@@ -4,7 +4,7 @@ public class UserDto {
 
     protected String _firstName;
 
-    protected String _emailAcc;
+    protected String _email;
 
     public String getFirstName() {
         return _firstName;
@@ -15,11 +15,11 @@ public class UserDto {
     }
 
     public String getEmailAcc() {
-        return _emailAcc;
+        return _email;
     }
 
     public void setEmailAcc(String _emailAcc) {
-        this._emailAcc = _emailAcc;
+        this._email = _emailAcc;
     }
 
 
