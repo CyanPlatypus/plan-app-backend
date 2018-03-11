@@ -1,6 +1,6 @@
 package com.plan.planningapp.controller;
 
-import classes.UserDto;
+import dto.UserDto;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,7 +21,7 @@ public class PlanController {
     }
 
     @CrossOrigin
-    @GetMapping(path = "hello")
+    @GetMapping(path = "users")
     public @ResponseBody List<UserDto> GetUsers(){
         List<UserDto> list = new ArrayList<>();
 
