@@ -27,11 +27,11 @@ public class PlanController {
 
         UserDto bob = new UserDto();
         bob.setFirstName("Bob");
-        bob.setEmailAcc("bluebird@bob.com");
+        bob.setEmail("bluebird@bob.com");
 
         UserDto alice = new UserDto();
         alice.setFirstName("Alice");
-        alice.setEmailAcc("bluebird_2@bob.com");
+        alice.setEmail("bluebird_2@bob.com");
 
         list.add(bob);
         list.add(alice);

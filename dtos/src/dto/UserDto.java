@@ -14,12 +14,12 @@ public class UserDto {
         this._firstName = _firstName;
     }
 
-    public String getEmailAcc() {
+    public String getEmail() {
         return _email;
     }
 
-    public void setEmailAcc(String _emailAcc) {
-        this._email = _emailAcc;
+    public void setEmail(String _email) {
+        this._email = _email;
     }
 
 
