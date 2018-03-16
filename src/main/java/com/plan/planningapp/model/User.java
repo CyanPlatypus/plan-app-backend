@@ -10,7 +10,7 @@ import java.util.Set;
 public class User {
 
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
     private String name;
@@ -27,7 +27,10 @@ public class User {
             fetch = FetchType.EAGER, orphanRemoval = true)
     private Set<Task> ownedTasks;
 
-    public User(){
+    @OneToMany(mappedBy = "user")
+    private Set<Comment> comments = new HashSet<>();
+
+    public User() {
         name = null;
         email = null;
         assignedTasks = new HashSet<>();
@@ -35,13 +38,32 @@ public class User {
 
     }
 
-    public void becomeAnAssineeToTheTask(Task t){
+    public void becomeAnAssineeToTheTask(Task t) {
         assignedTasks.add(t);
     }
 
-    public void becomeAnOwnerOfTheTask(Task t){
+    public void becomeAnOwnerOfTheTask(Task t) {
         t.setOwnerUser(this);
         ownedTasks.add(t);
+    }
+
+    public void RemoveTask(Task t){
+        if(t.getOwnerUser() == this){
+            this.ownedTasks.remove(t);
+        }
+    }
+
+    public void AddComment(Comment c) {
+        c.setUser(this);
+        this.comments.add(c);
+    }
+
+    public void RemoveComment(Comment c) {
+        this.comments.remove(c);
+    }
+
+    public void RemoveComment(int id) {
+        this.comments.removeIf(com -> com.getId() == id);
     }
 
     //region getters&setters
@@ -68,6 +90,7 @@ public class User {
     public void setEmail(String email) {
         this.email = email;
     }
+
     public Set<Task> getAssignedTasks() {
         return assignedTasks;
     }
@@ -75,6 +98,7 @@ public class User {
     public void setAssignedTasks(Set<Task> assignedTasks) {
         this.assignedTasks = assignedTasks;
     }
+
     public Set<Task> getOwnedTasks() {
         return ownedTasks;
     }

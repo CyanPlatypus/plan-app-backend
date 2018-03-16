@@ -1,7 +1,9 @@
 package com.plan.planningapp.controller;
 
+import com.plan.planningapp.model.Comment;
 import com.plan.planningapp.model.Task;
 import com.plan.planningapp.model.User;
+import com.plan.planningapp.repositories.CommentRepository;
 import com.plan.planningapp.repositories.TaskRepository;
 import com.plan.planningapp.repositories.UserRepository;
 import dto.UserDto;
@@ -25,6 +27,8 @@ public class PlanController {
     private UserRepository userRepository;
     @Autowired
     private TaskRepository taskRepository;
+    @Autowired
+    private CommentRepository commentRepository;
 
     @CrossOrigin
     @GetMapping(path = "hello")
@@ -70,6 +74,25 @@ public class PlanController {
         bob.becomeAnAssineeToTheTask(t);
 
         taskRepository.save(t);
+
+        Comment comm = new Comment();
+        comm.setDescription("help me");
+
+        alice.AddComment(comm);
+
+        t.AddComment(comm);
+
+        commentRepository.save(comm);
+
+        Task innerTask = new Task();
+
+        innerTask.AddInnerTask(innerTask);
+
+        innerTask.setOwnerUser(alice);
+
+        innerTask.AddAssigneeUser(alice);
+
+        taskRepository.save(innerTask);
 
         //Task test = taskRepository.findById(2).orElse(null);
         //Optional<Task> aThing = taskRepository.findById(2);
