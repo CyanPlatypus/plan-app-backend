@@ -18,7 +18,7 @@ public class Task {
     @ManyToMany(mappedBy = "assignedTasks")
     private Set<User> assigneesUsers= new HashSet<>();
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(/*fetch = FetchType.EAGER*/)
     @JoinColumn(name = "user_id")
     private User ownerUser = null;
 
