@@ -44,7 +44,10 @@ public class UserService {
         Iterable<Task> tasks = taskRepository.findByOwnerUserId(id);
         ArrayList<TaskDto> tasksDto = new ArrayList<>();
 
-        tasks.forEach(t->tasksDto.add(modelMapper.map(t, TaskDto.class)));
+        tasks.forEach(t->{
+        if(t.getParentTask() == null )
+            tasksDto.add(modelMapper.map(t, TaskDto.class));
+        });
 
         return tasksDto;
         //return findByOwnerUserId(id);

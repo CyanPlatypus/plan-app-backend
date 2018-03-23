@@ -24,9 +24,9 @@ public class Task {
 
     @ManyToOne(cascade={CascadeType.ALL})
     @JoinColumn(name="parent_task_id")
-    private Task parent_task = null;
+    private Task parentTask = null;
 
-    @OneToMany(mappedBy="parent_task")
+    @OneToMany(mappedBy="parentTask")
     private Set<Task> innerTasks = new HashSet<>();
 
     @OneToMany(mappedBy="task")
@@ -38,7 +38,7 @@ public class Task {
     }
 
     public void AddInnerTask(Task t){
-        t.setParent_task(this);
+        t.setParentTask(this);
         this.innerTasks.add(t);
     }
 
@@ -81,6 +81,22 @@ public class Task {
         this.id = id;
     }
 
+    public Task getParentTask() {
+        return parentTask;
+    }
+
+    public void setParentTask(Task parentTask) {
+        this.parentTask = parentTask;
+    }
+
+    public Set<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(Set<Comment> comments) {
+        this.comments = comments;
+    }
+
     public String getName() {
         return name;
     }
@@ -110,14 +126,6 @@ public class Task {
 
     public void setOwnerUser(User ownerUser) {
         this.ownerUser = ownerUser;
-    }
-
-    public Task getParent_task() {
-        return parent_task;
-    }
-
-    public void setParent_task(Task parent_task) {
-        this.parent_task = parent_task;
     }
 
     public Set<Task> getInnerTasks() {
