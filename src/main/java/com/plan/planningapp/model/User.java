@@ -1,8 +1,11 @@
 package com.plan.planningapp.model;
 
 import com.plan.planningapp.model.Task;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -13,28 +16,27 @@ public class User {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
+    @NotNull
+    @Column(unique=true)
     private String name;
 
     private String email;
 
+    //@OnDelete(action = OnDeleteAction.CASCADE)
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "user_task",
             joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "task_id", referencedColumnName = "id"))
-    private Set<Task> assignedTasks;
+    private Set<Task> assignedTasks = new HashSet<>();
 
     @OneToMany(mappedBy = "ownerUser", cascade = CascadeType.ALL,
-            fetch = FetchType.EAGER, orphanRemoval = true)
-    private Set<Task> ownedTasks;
+            fetch = FetchType.LAZY, orphanRemoval = true)
+    private Set<Task> ownedTasks = new HashSet<>();
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Comment> comments = new HashSet<>();
 
     public User() {
-        name = null;
-        email = null;
-        assignedTasks = new HashSet<>();
-        ownedTasks = new HashSet<>();
 
     }
 

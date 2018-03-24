@@ -1,6 +1,8 @@
 package com.plan.planningapp.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -11,6 +13,7 @@ public class Task {
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Integer id;
 
+    @NotNull
     private String name;
     @Lob //LongText
     private String description;
@@ -18,7 +21,7 @@ public class Task {
     @ManyToMany(mappedBy = "assignedTasks")
     private Set<User> assigneesUsers= new HashSet<>();
 
-    @ManyToOne(/*fetch = FetchType.EAGER*/)
+    @ManyToOne(optional = false/*fetch = FetchType.EAGER*/)
     @JoinColumn(name = "user_id")
     private User ownerUser = null;
 
@@ -29,8 +32,16 @@ public class Task {
     @OneToMany(mappedBy="parentTask")
     private Set<Task> innerTasks = new HashSet<>();
 
-    @OneToMany(mappedBy="task")
+    @OneToMany(mappedBy="task", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Comment> comments = new HashSet<>();
+
+    private LocalDateTime startDateTime;
+    private LocalDateTime finishDateTime;
+
+    private double plannedHours=0.0;
+    private double actualHours=0.0;
+
+    private boolean isFinished = false;
 
     public Task(){
         name = null;
@@ -136,5 +147,45 @@ public class Task {
         this.innerTasks = innerTasks;
     }
 
-    //endregion
+    public LocalDateTime getStartDateTime() {
+        return startDateTime;
+    }
+
+    public void setStartDateTime(LocalDateTime startDateTime) {
+        this.startDateTime = startDateTime;
+    }
+
+    public LocalDateTime getFinishDateTime() {
+        return finishDateTime;
+    }
+
+    public void setFinishDateTime(LocalDateTime finishDateTime) {
+        this.finishDateTime = finishDateTime;
+    }
+
+    public double getPlannedHours() {
+        return plannedHours;
+    }
+
+    public void setPlannedHours(double plannedHours) {
+        this.plannedHours = plannedHours;
+    }
+
+    public double getActualHours() {
+        return actualHours;
+    }
+
+    public void setActualHours(double actualHours) {
+        this.actualHours = actualHours;
+    }
+
+    public boolean isFinished() {
+        return isFinished;
+    }
+
+    public void setFinished(boolean finished) {
+        isFinished = finished;
+    }
+
+//endregion
 }

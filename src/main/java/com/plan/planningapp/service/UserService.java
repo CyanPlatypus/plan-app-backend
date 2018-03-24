@@ -38,8 +38,18 @@ public class UserService {
         //.save(u);
     }
 
+    public void createMockUserWithTask(){
+        User alice = new User();
+        alice.setName("mock user Alice");
+        Task task = new Task();
+        task.setName("mock task");
+        alice.becomeAnOwnerOfTheTask(task);
+        userRepository.save(alice);
+    }
+
     public Iterable<TaskDto> getOwnedTasks(Integer id ) {
         ModelMapper modelMapper = new ModelMapper();
+
 
         Iterable<Task> tasks = taskRepository.findByOwnerUserId(id);
         ArrayList<TaskDto> tasksDto = new ArrayList<>();

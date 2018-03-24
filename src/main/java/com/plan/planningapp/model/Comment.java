@@ -1,6 +1,8 @@
 package com.plan.planningapp.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import java.time.LocalDateTime;
 
 @Entity
 public class Comment {
@@ -8,19 +10,27 @@ public class Comment {
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Integer id;
 
+    @NotNull
     private String name;
+
     @Lob //LongText
     private String description;
 
-    @ManyToOne(cascade={CascadeType.ALL})
+    private double hours = 0.0;
+
+    @ManyToOne(optional = false,cascade={CascadeType.ALL})
     @JoinColumn(name="task_id")
     private Task task = null;
 
-    @ManyToOne(cascade={CascadeType.ALL})
+    @ManyToOne(optional = false,cascade={CascadeType.ALL})
     @JoinColumn(name="user_id")
     private User user = null;
 
+    private LocalDateTime creationDateTime;
 
+    public Comment(){
+        creationDateTime = LocalDateTime.now();
+    }
 
     //region getters&setters
     public Integer getId() {
@@ -62,6 +72,23 @@ public class Comment {
     public void setUser(User user) {
         this.user = user;
     }
+
+    public double getHours() {
+        return hours;
+    }
+
+    public void setHours(double hours) {
+        this.hours = hours;
+    }
+
+    public LocalDateTime getCreationDateTime() {
+        return creationDateTime;
+    }
+
+    public void setCreationDateTime(LocalDateTime creationDateTime) {
+        this.creationDateTime = creationDateTime;
+    }
+
     //endregion
 
 
