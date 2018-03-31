@@ -60,6 +60,11 @@
 			<artifactId>modelmapper-spring</artifactId>
 			<version>1.1.0</version>
 		</dependency>
+		<dependency>
+			<groupId>com.plan</groupId>
+			<artifactId>dtos</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+		</dependency>
 	</dependencies>
 
 
