@@ -47,10 +47,6 @@
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>mysql</groupId>
-			<artifactId>mysql-connector-java</artifactId>
-		</dependency>
-		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-devtools</artifactId>
 			<optional>true</optional>
@@ -77,5 +73,38 @@
 		</plugins>
 	</build>
 
+	<profiles>
+		<profile>
+			<id>mysql-db</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+            <dependencies>
+                <dependency>
+                    <groupId>mysql</groupId>
+                    <artifactId>mysql-connector-java</artifactId>
+                </dependency>
+            </dependencies>
+			<properties>
+				<databaseDialect>org.hibernate.dialect.MySQL57Dialect</databaseDialect>
+                <datasourceURL>jdbc:mysql://localhost:3306/db_plan</datasourceURL>
+                <datasourceDriver>com.mysql.jdbc.Driver</datasourceDriver>
+			</properties>
+		</profile>
+        <profile>
+            <id>postgre-db</id>
+            <dependencies>
+                <dependency>
+                    <groupId>org.postgresql</groupId>
+                    <artifactId>postgresql</artifactId>
+                </dependency>
+            </dependencies>
+            <properties>
+                <databaseDialect>org.hibernate.dialect.PostgreSQL95Dialect</databaseDialect>
+                <datasourceURL>jdbc:postgresql://localhost:5432/db_plan</datasourceURL>
+                <datasourceDriver>org.postgresql.Driver</datasourceDriver>
+            </properties>
+        </profile>
+	</profiles>
 
 </project>
