@@ -40,10 +40,6 @@
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-web</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
 		</dependency>
 		<dependency>
@@ -76,9 +72,6 @@
 	<profiles>
 		<profile>
 			<id>mysql-db</id>
-			<activation>
-				<activeByDefault>true</activeByDefault>
-			</activation>
             <dependencies>
                 <dependency>
                     <groupId>mysql</groupId>
@@ -104,6 +97,34 @@
                 <datasourceURL>jdbc:postgresql://localhost:5432/db_plan</datasourceURL>
                 <datasourceDriver>org.postgresql.Driver</datasourceDriver>
             </properties>
+        </profile>
+        <profile>
+            <id>tomcat</id>
+            <dependencies>
+                <dependency>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-web</artifactId>
+                </dependency>
+            </dependencies>
+        </profile>
+        <profile>
+            <id>jetty</id>
+            <dependencies>
+                <dependency>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-web</artifactId>
+                    <exclusions>
+                        <exclusion>
+                            <groupId>org.springframework.boot</groupId>
+                            <artifactId>spring-boot-starter-tomcat</artifactId>
+                        </exclusion>
+                    </exclusions>
+                </dependency>
+                <dependency>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-jetty</artifactId>
+                </dependency>
+            </dependencies>
         </profile>
 	</profiles>
 
