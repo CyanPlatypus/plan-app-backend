@@ -20,7 +20,7 @@ public class User {
     @Column(unique=true)
     private String name;
 
-    private String email;
+    //private String email;
 
     //@OnDelete(action = OnDeleteAction.CASCADE)
     @ManyToMany(cascade = CascadeType.ALL)
@@ -85,13 +85,13 @@ public class User {
         this.name = name;
     }
 
-    public String getEmail() {
-        return email;
-    }
+//    public String getEmail() {
+//        return email;
+//    }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
+//    public void setEmail(String email) {
+//        this.email = email;
+//    }
 
     public Set<Task> getAssignedTasks() {
         return assignedTasks;

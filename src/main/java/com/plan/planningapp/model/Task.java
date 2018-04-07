@@ -15,7 +15,7 @@ public class Task {
 
     @NotNull
     private String name;
-    @Lob //LongText
+    //@Lob //LongText
     private String description;
 
     @ManyToMany(mappedBy = "assignedTasks")

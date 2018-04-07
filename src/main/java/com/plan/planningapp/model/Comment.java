@@ -13,7 +13,7 @@ public class Comment {
     @NotNull
     private String name;
 
-    @Lob //LongText
+    //@Lob //LongText
     private String description;
 
     private double hours = 0.0;
