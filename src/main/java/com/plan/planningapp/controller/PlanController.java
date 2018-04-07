@@ -2,8 +2,8 @@ package com.plan.planningapp.controller;
 
 import com.plan.planningapp.model.Task;
 import com.plan.planningapp.service.UserService;
-import dto.TaskDto;
-import dto.UserDto;
+import com.plan.dto.TaskDto;
+import com.plan.dto.UserDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;

@@ -4,7 +4,7 @@ import com.plan.planningapp.model.Task;
 import com.plan.planningapp.model.User;
 import com.plan.planningapp.repositories.TaskRepository;
 import com.plan.planningapp.repositories.UserRepository;
-import dto.TaskDto;
+import com.plan.dto.TaskDto;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

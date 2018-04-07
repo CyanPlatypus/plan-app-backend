@@ -1,4 +1,4 @@
-package dto;
+package com.plan.dto;
 
 public class UserDto {
 

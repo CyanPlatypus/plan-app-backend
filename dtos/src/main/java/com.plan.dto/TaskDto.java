@@ -1,4 +1,4 @@
-package dto;
+package com.plan.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
