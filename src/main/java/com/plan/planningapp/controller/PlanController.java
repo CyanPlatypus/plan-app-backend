@@ -14,7 +14,7 @@ import java.util.List;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 
 
-@Controller
+@RestController
 @RequestMapping(path = "/plan")
 public class PlanController {
 

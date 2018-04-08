@@ -25,6 +25,9 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>1.8</java.version>
+		<maven.compiler.source>1.8</maven.compiler.source>
+		<maven.compiler.target>1.8</maven.compiler.target>
+		<!--<aspectj.version>1.8.9</aspectj.version>-->
 	</properties>
 
 	<dependencies>
@@ -52,11 +55,38 @@
 			<artifactId>modelmapper-spring</artifactId>
 			<version>1.1.0</version>
 		</dependency>
+		<!-- dtos-->
 		<dependency>
 			<groupId>com.plan</groupId>
 			<artifactId>dtos</artifactId>
             <version>0.0.1-SNAPSHOT</version>
 		</dependency>
+		<!-- Spring Security OAuth2-->
+		<dependency>
+			<groupId>org.springframework.security.oauth</groupId>
+			<artifactId>spring-security-oauth2</artifactId>
+			<version>2.0.10.RELEASE</version>
+		</dependency>
+		<!-- Spring Security -->
+		<!--<dependency>-->
+			<!--<groupId>org.springframework.security</groupId>-->
+			<!--<artifactId>spring-security-web</artifactId>-->
+			<!--&lt;!&ndash;<version>4.1.1.RELEASE</version>&ndash;&gt;-->
+		<!--</dependency>-->
+		<!--<dependency>-->
+			<!--<groupId>org.springframework.security</groupId>-->
+			<!--<artifactId>spring-security-config</artifactId>-->
+			<!--&lt;!&ndash;<version>4.1.1.RELEASE</version>&ndash;&gt;-->
+		<!--</dependency>-->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
+		<!--<dependency>-->
+			<!--<groupId>javax.servlet</groupId>-->
+			<!--<artifactId>javax.servlet-api</artifactId>-->
+			<!--<version>3.1.0</version>-->
+		<!--</dependency>-->
 	</dependencies>
 
 
