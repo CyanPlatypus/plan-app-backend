@@ -1,13 +1,17 @@
 package com.plan.planningapp.controller;
 
 import com.plan.planningapp.model.Task;
+import com.plan.planningapp.security.UserInfoDetails;
+import com.plan.planningapp.service.PlanUserDetailsService;
 import com.plan.planningapp.service.UserService;
 import com.plan.dto.TaskDto;
 import com.plan.dto.UserDto;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,6 +24,9 @@ public class PlanController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private PlanUserDetailsService planUserDetailsService;
 
     @CrossOrigin
     @GetMapping(path = "hello")
@@ -44,6 +51,32 @@ public class PlanController {
         list.add(alice);
 
         return list;
+    }
+
+    @RequestMapping(value = "/usernamePrivc", method = RequestMethod.GET)
+    @ResponseBody
+    public String currentUserName(Principal principal) {
+        return principal.getName();
+    }
+
+    @RequestMapping(value = "/usernameAuth", method = RequestMethod.GET)
+    @ResponseBody
+    public String currentUserName(Authentication authentication) {
+        UserInfoDetails userInfoDetails = (UserInfoDetails) authentication.getPrincipal();
+        //System.out.println("User has authorities: " + userDetails.getAuthorities());
+        return planUserDetailsService.getUserNameByUserInfoId(userInfoDetails.getUiId());
+        //userInfoDetails.getUserInfo().getUser().getName();
+        //return authentication.getName();
+    }
+
+    @GetMapping("/signup")
+    @ResponseBody
+    public String greeting(@RequestParam("name") String username,
+                           @RequestParam("email") String email,
+                           @RequestParam("pass") String password) {
+        //todo validation check if this email exists
+        planUserDetailsService.addUser(username, email, password);
+        return "done";
     }
 
     @RequestMapping(method=GET, value="/user/{id}/tasks" )

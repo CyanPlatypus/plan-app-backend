@@ -10,14 +10,15 @@ import java.util.Collections;
 
 public class UserInfoDetails  implements UserDetails {
     private UserInfo userInfo;
+    private Integer uiId;
 
     public UserInfoDetails(UserInfo ui){
-        userInfo = ui;
+        userInfo = ui;uiId = ui.getId();
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Collections.singletonList(new SimpleGrantedAuthority("ADMIN"));
+        return Collections.singletonList(new SimpleGrantedAuthority("USER"));
     }
 
     @Override
@@ -48,5 +49,12 @@ public class UserInfoDetails  implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    public UserInfo getUserInfo() {
+        return userInfo;
+    }
+    public Integer getUiId(){
+        return uiId;
     }
 }

@@ -1,5 +1,6 @@
 package com.plan.planningapp.service;
 
+import com.plan.planningapp.model.User;
 import com.plan.planningapp.model.UserInfo;
 import com.plan.planningapp.repositories.UserInfoRepository;
 import com.plan.planningapp.repositories.UserRepository;
@@ -27,5 +28,33 @@ public class PlanUserDetailsService implements UserDetailsService{
         else{
             return new UserInfoDetails(ui);
         }
+    }
+
+    public String getUserNameByUserInfoId(Integer id){
+
+        UserInfo ui = userInfoRepository.findById(id).orElse(null);
+        if(ui!=null)
+        {
+            User user = ui.getUser();
+            if(user!=null)
+                return user.getName();
+        }
+
+        return "fairytale goes bad";
+    }
+
+    public void addUser(String name, String email, String pass){
+        UserInfo ui = new UserInfo();
+        ui.setEmail(email);
+        ui.setPass(pass);
+
+        User user = new User();
+        user.setName(name);
+
+        userRepository.save(user);
+
+        ui.setUser(user);
+
+        userInfoRepository.save(ui);
     }
 }

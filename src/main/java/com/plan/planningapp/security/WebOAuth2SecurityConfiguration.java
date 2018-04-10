@@ -76,7 +76,7 @@ public class WebOAuth2SecurityConfiguration extends WebSecurityConfigurerAdapter
                 .anonymous().disable()
                 .authorizeRequests()
                 .antMatchers("/oauth/token").permitAll()
-                .antMatchers("/registration/**").permitAll();
+                .antMatchers("/plan/signup**").permitAll();
     }
 
     @Override
