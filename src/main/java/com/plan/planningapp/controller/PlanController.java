@@ -1,16 +1,18 @@
 package com.plan.planningapp.controller;
 
-import com.plan.planningapp.model.Task;
+import com.plan.planningapp.model.additional.UserCreateRequest;
 import com.plan.planningapp.security.UserInfoDetails;
 import com.plan.planningapp.service.PlanUserDetailsService;
 import com.plan.planningapp.service.UserService;
 import com.plan.dto.TaskDto;
 import com.plan.dto.UserDto;
+import com.plan.planningapp.validators.UserCreateRequestValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
-import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,6 +29,9 @@ public class PlanController {
 
     @Autowired
     private PlanUserDetailsService planUserDetailsService;
+
+    @Autowired
+    private UserCreateRequestValidator userCreateRequestValidator;
 
     @CrossOrigin
     @GetMapping(path = "hello")
@@ -69,7 +74,12 @@ public class PlanController {
         //return authentication.getName();
     }
 
-    @GetMapping("/signup")
+    @InitBinder("userCreateRequest")
+    public void setupBinder(WebDataBinder binder) {
+        binder.addValidators(userCreateRequestValidator);
+    }
+
+    @GetMapping("/signup/getAuth")
     @ResponseBody
     public String greeting(@RequestParam("name") String username,
                            @RequestParam("email") String email,
@@ -77,6 +87,15 @@ public class PlanController {
         //todo validation check if this email exists
         planUserDetailsService.addUser(username, email, password);
         return "done";
+    }
+
+    @RequestMapping(value = "/signup", method = RequestMethod.POST)
+    @ResponseBody
+    public String add(@Valid @RequestBody UserCreateRequest userCreateRequest) {
+        if(userCreateRequest!=null)
+            planUserDetailsService.addUser(userCreateRequest.getName(),
+                    userCreateRequest.getEmail(), userCreateRequest.getPass());
+        return "we've done our best";
     }
 
     @RequestMapping(method=GET, value="/user/{id}/tasks" )
