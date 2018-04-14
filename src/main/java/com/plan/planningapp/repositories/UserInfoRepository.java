@@ -6,4 +6,5 @@ import org.springframework.data.repository.CrudRepository;
 public interface UserInfoRepository extends CrudRepository<UserInfo, Integer> {
     UserInfo findByEmail(String email);
     boolean existsByEmail(String email);
+    //Integer findUserIdById(Integer id);
 }

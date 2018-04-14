@@ -16,9 +16,14 @@ public class UserInfo {
     @NotNull
     private String pass;
 
+    //@Column(name = "user_id", insertable = false, updatable = false)
+    //private Integer userId;
+
     @OneToOne(fetch = FetchType.LAZY, optional = false, cascade = CascadeType.ALL)
     //@MapsId
     private User user;
+
+
 
     //region Description
 
@@ -53,5 +58,14 @@ public class UserInfo {
     public void setUser(User user) {
         this.user = user;
     }
+
+//    public Integer getUserId() {
+//        return userId;
+//    }
+//
+//    public void setUserId(Integer userId) {
+//        this.userId = userId;
+//    }
+
     //endregion
 }

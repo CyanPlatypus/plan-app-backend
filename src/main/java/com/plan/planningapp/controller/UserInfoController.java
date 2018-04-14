@@ -29,7 +29,7 @@ public class UserInfoController {
 
     @RequestMapping(value = "/signup", method = RequestMethod.POST)
     @ResponseBody
-    public String add(@Valid @RequestBody UserCreateRequestDto userCreateRequestDto) {
+    public String addUser(@Valid @RequestBody UserCreateRequestDto userCreateRequestDto) {
         if(userCreateRequestDto!=null)
             planUserDetailsService.addUser(userCreateRequestDto.getName(),
                     userCreateRequestDto.getEmail(), userCreateRequestDto.getPass());

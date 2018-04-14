@@ -45,6 +45,20 @@ public class PlanUserDetailsService implements UserDetailsService{
         return "fairytale goes bad";
     }
 
+    public Integer getUserIdByUserInfoId(Integer id){
+
+        UserInfo ui = userInfoRepository.findById(id).orElse(null);
+        if(ui!=null)
+        {
+            User user = ui.getUser();
+            if(user!=null){
+                return  user.getId();
+            }
+        }
+
+        return null;
+    }
+
     public UserDto getUserByUserInfoId(Integer id){
 
         UserInfo ui = userInfoRepository.findById(id).orElse(null);
