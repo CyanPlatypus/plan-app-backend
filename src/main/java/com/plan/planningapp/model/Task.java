@@ -48,6 +48,18 @@ public class Task {
         description = null;
     }
 
+    public Task(@NotNull String name, String description,
+                Task parentTask, LocalDateTime startDateTime,
+                LocalDateTime finishDateTime, double plannedHours) {
+        this.name = name;
+        this.description = description;
+        this.parentTask = parentTask;
+        this.startDateTime = startDateTime;
+        this.finishDateTime = finishDateTime;
+        this.plannedHours = plannedHours;
+        this.actualHours = 0.0;
+    }
+
     public void AddInnerTask(Task t){
         t.setParentTask(this);
         this.innerTasks.add(t);

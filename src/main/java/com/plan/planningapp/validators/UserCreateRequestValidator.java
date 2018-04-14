@@ -1,6 +1,6 @@
 package com.plan.planningapp.validators;
 
-import com.plan.planningapp.model.additional.UserCreateRequest;
+import com.plan.dto.UserCreateRequestDto;
 import com.plan.planningapp.repositories.UserInfoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -15,15 +15,28 @@ public class UserCreateRequestValidator implements Validator {
 
     @Override
     public boolean supports(Class<?> aClass) {
-        return UserCreateRequest.class.isAssignableFrom(aClass);
+        return UserCreateRequestDto.class.isAssignableFrom(aClass);
     }
 
     @Override
     public void validate(Object ob, Errors errors) {
-        UserCreateRequest productCreateRequest = (UserCreateRequest) ob;
+        UserCreateRequestDto userCreateRequest = (UserCreateRequestDto) ob;
 
-        if (userInfoRepository.findByEmail(((UserCreateRequest) ob).getEmail())!=null) {
-            errors.reject("CODE","EXISTS  "/*ALREADY_EXISTS.getCode()*/);
+        if(userCreateRequest.getName().isEmpty() ||  userCreateRequest.getName().trim().isEmpty()){
+            errors.rejectValue(UserCreateRequestDto.getNameFieldName(), PlanError.EMPTY.getDescription());
         }
+        if(userCreateRequest.getEmail().isEmpty() ||  userCreateRequest.getEmail().trim().isEmpty()){
+            errors.rejectValue(UserCreateRequestDto.getEmailFieldName(), PlanError.EMPTY.getDescription());
+        }
+        else if (userInfoRepository.findByEmail(((UserCreateRequestDto) ob).getEmail())!=null) {
+            //errors.reject("CODE",PlanError.EXISTS.getDescription());
+            errors.rejectValue(UserCreateRequestDto.getEmailFieldName(), PlanError.EXISTS.getDescription());
+        }
+
+        if(userCreateRequest.getPass().isEmpty() ||  userCreateRequest.getPass().trim().isEmpty()){
+            errors.rejectValue(UserCreateRequestDto.getPassFieldName(), PlanError.EMPTY.getDescription());
+        }
+
+
     }
 }

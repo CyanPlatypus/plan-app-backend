@@ -1,15 +1,29 @@
-package com.plan.planningapp.model.additional;
+package com.plan.dto;
 
-import javax.validation.constraints.NotBlank;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
-public class UserCreateRequest {
+public class UserCreateRequestDto {
 
-    @NotBlank
     private String name;
-    @NotBlank
+
     private String email;
-    @NotBlank
+
     private String pass;
+
+    @JsonIgnore
+    public static String getNameFieldName(){
+        return "name";
+    }
+
+    @JsonIgnore
+    public static String getEmailFieldName(){
+        return "email";
+    }
+
+    @JsonIgnore
+    public static String getPassFieldName(){
+        return "pass";
+    }
 
     public String getName() {
         return name;

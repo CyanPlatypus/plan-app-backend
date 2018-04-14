@@ -1,26 +1,30 @@
 package com.plan.dto;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public class UserDto {
 
-    protected String _firstName;
+    //private Integer id;
+    protected String name;
 
-    protected String _email;
+    //protected String email;
 
-    public String getFirstName() {
-        return _firstName;
+    private Set<TaskDto> ownedTasks = new HashSet<>();
+
+    public String getName() {
+        return name;
     }
 
-    public void setFirstName(String _firstName) {
-        this._firstName = _firstName;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getEmail() {
-        return _email;
+    public Set<TaskDto> getOwnedTasks() {
+        return ownedTasks;
     }
 
-    public void setEmail(String _email) {
-        this._email = _email;
+    public void setOwnedTasks(Set<TaskDto> ownedTasks) {
+        this.ownedTasks = ownedTasks;
     }
-
-
 }

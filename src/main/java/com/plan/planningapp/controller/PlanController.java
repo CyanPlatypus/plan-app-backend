@@ -1,6 +1,7 @@
 package com.plan.planningapp.controller;
 
-import com.plan.planningapp.model.additional.UserCreateRequest;
+import com.plan.dto.UserCreateRequestDto;
+import com.plan.planningapp.model.Task;
 import com.plan.planningapp.security.UserInfoDetails;
 import com.plan.planningapp.service.PlanUserDetailsService;
 import com.plan.planningapp.service.UserService;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.security.Principal;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,16 +29,16 @@ public class PlanController {
     @Autowired
     private UserService userService;
 
-    @Autowired
-    private PlanUserDetailsService planUserDetailsService;
-
-    @Autowired
-    private UserCreateRequestValidator userCreateRequestValidator;
-
     @CrossOrigin
     @GetMapping(path = "hello")
     public @ResponseBody String SayHello(){
-        return "Oh hi Mark";
+        addTask(); return "Oh hi Mark";
+    }
+
+    public void addTask(){
+        Task t = new Task("go to nell", "decr",
+                null, LocalDateTime.now(), LocalDateTime.now(), 67);
+        userService.addTaskToUserOwnedList(t, 9);
     }
 
     @CrossOrigin
@@ -45,12 +47,12 @@ public class PlanController {
         List<UserDto> list = new ArrayList<>();
 
         UserDto bob = new UserDto();
-        bob.setFirstName("Bob");
-        bob.setEmail("bluebird@bob.com");
+        bob.setName("Bob");
+        //bob.setEmail("bluebird@bob.com");
 
         UserDto alice = new UserDto();
-        alice.setFirstName("Alice");
-        alice.setEmail("bluebird_2@bob.com");
+        alice.setName("Alice");
+        //alice.setEmail("bluebird_2@bob.com");
 
         list.add(bob);
         list.add(alice);
@@ -58,45 +60,27 @@ public class PlanController {
         return list;
     }
 
-    @RequestMapping(value = "/usernamePrivc", method = RequestMethod.GET)
-    @ResponseBody
-    public String currentUserName(Principal principal) {
-        return principal.getName();
-    }
+//    @RequestMapping(value = "/usernamePrivc", method = RequestMethod.GET)
+//    @ResponseBody
+//    public String currentUserName(Principal principal) {
+//        return principal.getName();
+//    }
 
-    @RequestMapping(value = "/usernameAuth", method = RequestMethod.GET)
-    @ResponseBody
-    public String currentUserName(Authentication authentication) {
-        UserInfoDetails userInfoDetails = (UserInfoDetails) authentication.getPrincipal();
-        //System.out.println("User has authorities: " + userDetails.getAuthorities());
-        return planUserDetailsService.getUserNameByUserInfoId(userInfoDetails.getUiId());
-        //userInfoDetails.getUserInfo().getUser().getName();
-        //return authentication.getName();
-    }
 
-    @InitBinder("userCreateRequest")
-    public void setupBinder(WebDataBinder binder) {
-        binder.addValidators(userCreateRequestValidator);
-    }
 
-    @GetMapping("/signup/getAuth")
-    @ResponseBody
-    public String greeting(@RequestParam("name") String username,
-                           @RequestParam("email") String email,
-                           @RequestParam("pass") String password) {
-        //todo validation check if this email exists
-        planUserDetailsService.addUser(username, email, password);
-        return "done";
-    }
 
-    @RequestMapping(value = "/signup", method = RequestMethod.POST)
-    @ResponseBody
-    public String add(@Valid @RequestBody UserCreateRequest userCreateRequest) {
-        if(userCreateRequest!=null)
-            planUserDetailsService.addUser(userCreateRequest.getName(),
-                    userCreateRequest.getEmail(), userCreateRequest.getPass());
-        return "we've done our best";
-    }
+
+//    @GetMapping("/signup/getAuth")
+//    @ResponseBody
+//    public String greeting(@RequestParam("name") String username,
+//                           @RequestParam("email") String email,
+//                           @RequestParam("pass") String password) {
+//        //todo validation check if this email exists
+//        planUserDetailsService.addUser(username, email, password);
+//        return "done";
+//    }
+
+
 
     @RequestMapping(method=GET, value="/user/{id}/tasks" )
     public @ResponseBody Iterable<TaskDto> delete(@PathVariable Integer id) {
