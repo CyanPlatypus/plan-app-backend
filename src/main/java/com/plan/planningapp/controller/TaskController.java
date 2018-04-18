@@ -41,7 +41,7 @@ public class TaskController {
         return null;
     }
 
-    @RequestMapping(value = "/addTask", method = RequestMethod.POST)
+    @RequestMapping(value = "/tasks/add", method = RequestMethod.POST)
     @ResponseBody
     public String addTask(@Valid @RequestBody TaskDto taskDto, Authentication authentication) {
         UserInfoDetails userInfoDetails = (UserInfoDetails) authentication.getPrincipal();
@@ -50,6 +50,17 @@ public class TaskController {
 //            userService.addTaskToTheUserOwnedList(taskDto,
 //                    planUserDetailsService.getUserIdByUserInfoId(userInfoDetails.getUiId()));
             userService.addTaskToTheUserOwnedList(taskDto,userInfoDetails.getUId());
+        return "task added";
+    }
+
+    @RequestMapping(value = "/tasks/edit", method = RequestMethod.POST)
+    @ResponseBody
+    public String editTask(@Valid @RequestBody TaskDto taskDto, Authentication authentication) {
+        UserInfoDetails userInfoDetails = (UserInfoDetails) authentication.getPrincipal();
+
+        if(taskDto!=null)
+            userService.editTask(taskDto, userInfoDetails.getUId());
+
         return "task added";
     }
 }

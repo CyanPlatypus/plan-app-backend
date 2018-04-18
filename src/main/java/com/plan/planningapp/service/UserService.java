@@ -53,6 +53,16 @@ public class UserService {
         });
     }
 
+    public void editTask(TaskDto tDto, Integer userId){
+        Task t = modelMapper.map(tDto, Task.class);
+
+        userRepository.findById(userId).ifPresent(user->{
+            t.setOwnerUser(user);
+            taskRepository.save(t);
+        });
+
+    }
+
     public void createMockUserWithTask(){
         User alice = new User();
         alice.setName("mock user Alice");
