@@ -7,6 +7,8 @@ import com.plan.planningapp.repositories.UserRepository;
 import com.plan.dto.TaskDto;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -19,6 +21,10 @@ public class UserService {
     private UserRepository userRepository;
     @Autowired
     private TaskRepository taskRepository;
+
+    @Autowired
+    @Qualifier("modelMapperBean")
+    private ModelMapper modelMapper;
 
     public void addUser(User u){
         userRepository.save(u);
@@ -39,8 +45,9 @@ public class UserService {
     }
 
     public void addTaskToTheUserOwnedList(TaskDto tDto, Integer id){
-        ModelMapper modelMapper = new ModelMapper();
+        //ModelMapper modelMapper = new ModelMapper();
         Task t = modelMapper.map(tDto, Task.class);
+        t.setId(null);
         userRepository.findById(id).ifPresent(user->{
             user.becomeAnOwnerOfTheTask(t); userRepository.save(user);
         });
@@ -56,7 +63,7 @@ public class UserService {
     }
 
     public Iterable<TaskDto> getOwnedTasks(Integer id ) {
-        ModelMapper modelMapper = new ModelMapper();
+        //ModelMapper modelMapper = new ModelMapper();
 
 
         Iterable<Task> tasks = taskRepository.findByOwnerUserId(id);
@@ -69,6 +76,12 @@ public class UserService {
 
         return tasksDto;
         //return findByOwnerUserId(id);
+    }
+
+    @Bean
+    public ModelMapper modelMapperBean()
+    {
+        return new ModelMapper();
     }
 
 //    Iterable<Task> findByOwnerUserId(Integer id){

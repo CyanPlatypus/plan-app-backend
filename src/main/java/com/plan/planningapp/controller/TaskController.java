@@ -47,7 +47,9 @@ public class TaskController {
         UserInfoDetails userInfoDetails = (UserInfoDetails) authentication.getPrincipal();
 
         if(taskDto!=null)
-            userService.addTaskToTheUserOwnedList(taskDto, planUserDetailsService.getUserIdByUserInfoId(userInfoDetails.getUiId()));
+//            userService.addTaskToTheUserOwnedList(taskDto,
+//                    planUserDetailsService.getUserIdByUserInfoId(userInfoDetails.getUiId()));
+            userService.addTaskToTheUserOwnedList(taskDto,userInfoDetails.getUId());
         return "task added";
     }
 }

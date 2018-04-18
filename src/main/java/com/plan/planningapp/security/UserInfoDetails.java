@@ -11,9 +11,12 @@ import java.util.Collections;
 public class UserInfoDetails  implements UserDetails {
     private UserInfo userInfo;
     private Integer uiId;
+    private Integer uId;
 
     public UserInfoDetails(UserInfo ui){
-        userInfo = ui;uiId = ui.getId();
+        userInfo = ui;
+        uiId = ui.getId();
+        uId = ui.getUser().getId();
     }
 
     @Override
@@ -51,10 +54,13 @@ public class UserInfoDetails  implements UserDetails {
         return true;
     }
 
-    public UserInfo getUserInfo() {
-        return userInfo;
-    }
+//    public UserInfo getUserInfo() {
+//        return userInfo;
+//    }
     public Integer getUiId(){
         return uiId;
+    }
+    public Integer getUId(){
+        return uId;
     }
 }
