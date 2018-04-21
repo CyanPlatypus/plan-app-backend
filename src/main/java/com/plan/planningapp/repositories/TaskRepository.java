@@ -8,6 +8,6 @@ import java.util.ArrayList;
 public interface TaskRepository extends CrudRepository<Task, Integer> {
 
     Iterable<Task> findByOwnerUserId(Integer id);
-
+    Task getFirstByIdAndOwnerUserId(Integer id, Integer ownerUserId);
 
 }

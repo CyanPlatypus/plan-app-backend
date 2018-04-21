@@ -103,6 +103,16 @@ public class UserService {
         return new ModelMapper();
     }
 
+    public boolean userIsTaskOwner(Integer id, Integer uId) {
+        if (taskRepository.getFirstByIdAndOwnerUserId(id, uId)!=null)
+            return true;
+        return false;
+    }
+
+    public void removeTask(Integer id) {
+        taskRepository.deleteById(id);
+    }
+
 //    Iterable<Task> findByOwnerUserId(Integer id){
 //        Iterable<Task> tasks = taskRepository.findAll();
 //        ArrayList<Task> tas = new ArrayList<>();

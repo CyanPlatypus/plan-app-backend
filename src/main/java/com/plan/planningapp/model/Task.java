@@ -25,7 +25,7 @@ public class Task {
     @JoinColumn(name = "user_id")
     private User ownerUser = null;
 
-    @ManyToOne(cascade={CascadeType.ALL})
+    @ManyToOne//(cascade={CascadeType.ALL})
     @JoinColumn(name="parent_task_id")
     private Task parentTask = null;
 

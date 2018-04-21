@@ -46,10 +46,23 @@ public class TaskCommentService {
                 user->
         taskRepository.findById(taskId).ifPresent(
                 task->{
+                    comment.setCreationDateTimeNow();
+                    comment.setId(null);
                     comment.setUser(user);
                     task.addComment(comment);
                     taskRepository.save(task);
                 }
         ));
+    }
+
+
+    public boolean userIsCommentOwner(Integer id, Integer uId) {
+        if(commentRepository.getFirstByIdAndUserId(id, uId)!=null)
+            return true;
+        return false;
+    }
+
+    public void removeComment(Integer id) {
+        commentRepository.deleteById(id);
     }
 }

@@ -77,4 +77,15 @@ public class TaskController {
 
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
     }
+
+    @RequestMapping(value = "/tasks/{id}", method = RequestMethod.DELETE)
+    @ResponseBody
+    public ResponseEntity removeTask(@PathVariable Integer id, Authentication authentication){
+        UserInfoDetails userInfoDetails = (UserInfoDetails) authentication.getPrincipal();
+        if(userService.userIsTaskOwner(id, userInfoDetails.getUId())){
+            userService.removeTask(id);
+            return ResponseEntity.status(HttpStatus.OK).body("Removed");
+        }
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Not removed");
+    }
 }

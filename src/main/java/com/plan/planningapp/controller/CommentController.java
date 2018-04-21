@@ -44,6 +44,19 @@ public class CommentController {
         UserInfoDetails userInfoDetails = (UserInfoDetails) authentication.getPrincipal();
 
         taskCommentService.addComment(id, userInfoDetails.getUId(), commentDto);
-        return ResponseEntity.status(HttpStatus.OK).body("Fine");
+        return ResponseEntity.status(HttpStatus.OK).body("Added");
+    }
+
+    @RequestMapping(value = "/tasks/{taskId}/comments/{id}", method = RequestMethod.DELETE)
+    @ResponseBody
+    public ResponseEntity removeComment(@PathVariable Integer taskId,
+                                        @PathVariable Integer id, Authentication authentication){
+        UserInfoDetails userInfoDetails = (UserInfoDetails) authentication.getPrincipal();
+
+        if (taskCommentService.userIsCommentOwner(id, userInfoDetails.getUId())){
+            taskCommentService.removeComment(id);
+            return ResponseEntity.status(HttpStatus.OK).body("Removed");
+        }
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Not removed");
     }
 }

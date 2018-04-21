@@ -18,11 +18,11 @@ public class Comment {
 
     private double hours = 0.0;
 
-    @ManyToOne(optional = false,cascade={CascadeType.ALL})
+    @ManyToOne(optional = false/*,cascade={CascadeType.ALL}*/)
     @JoinColumn(name="task_id")
     private Task task = null;
 
-    @ManyToOne(optional = false,cascade={CascadeType.ALL})
+    @ManyToOne(optional = false/*,cascade={CascadeType.ALL}*/)
     @JoinColumn(name="user_id")
     private User user = null;
 
