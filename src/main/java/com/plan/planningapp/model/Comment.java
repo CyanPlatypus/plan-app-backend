@@ -29,7 +29,11 @@ public class Comment {
     private LocalDateTime creationDateTime;
 
     public Comment(){
-        creationDateTime = LocalDateTime.now();
+        /*creationDateTime = LocalDateTime.now();*/
+    }
+
+    public void setCreationDateTimeNow() {
+        this.creationDateTime = LocalDateTime.now();
     }
 
     //region getters&setters

@@ -7,6 +7,8 @@ import com.plan.planningapp.service.PlanUserDetailsService;
 import com.plan.planningapp.service.UserService;
 import com.plan.planningapp.validators.TaskCreateRequestValidator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
@@ -53,7 +55,7 @@ public class TaskController {
         return "task added";
     }
 
-    @RequestMapping(value = "/tasks/edit", method = RequestMethod.POST)
+    @RequestMapping(value = "/tasks/edit", method = RequestMethod.PUT)
     @ResponseBody
     public String editTask(@Valid @RequestBody TaskDto taskDto, Authentication authentication) {
         UserInfoDetails userInfoDetails = (UserInfoDetails) authentication.getPrincipal();
@@ -62,5 +64,17 @@ public class TaskController {
             userService.editTask(taskDto, userInfoDetails.getUId());
 
         return "task added";
+    }
+
+    @RequestMapping(value = "/tasks/{id}", method = RequestMethod.GET)
+    @ResponseBody
+    public ResponseEntity<TaskDto> getTask(@PathVariable Integer id, Authentication authentication) {
+        UserInfoDetails userInfoDetails = (UserInfoDetails) authentication.getPrincipal();
+
+        TaskDto t = userService.getTask(id);
+        if(t!=null)
+            return ResponseEntity.ok(t);
+
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
     }
 }

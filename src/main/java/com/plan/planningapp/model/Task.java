@@ -83,7 +83,7 @@ public class Task {
         this.assigneesUsers.removeIf(user->user.getId()==id);
     }
 
-    public void AddComment(Comment c){
+    public void addComment(Comment c){
         c.setTask(this);
         this.comments.add(c);
     }

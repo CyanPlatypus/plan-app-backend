@@ -110,9 +110,9 @@ public class PlanController {
 //        Comment comm = new Comment();
 //        comm.setDescription("help me");
 //
-//        alice.AddComment(comm);
+//        alice.addComment(comm);
 //
-//        t.AddComment(comm);
+//        t.addComment(comm);
 //
 //        commentRepository.save(comm);
 //

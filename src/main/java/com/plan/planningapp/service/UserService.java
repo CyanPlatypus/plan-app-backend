@@ -63,6 +63,15 @@ public class UserService {
 
     }
 
+    public TaskDto getTask(Integer id){
+        Task t = taskRepository.findById(id).orElse(null);
+        if(t!=null){
+            return modelMapper.map(t, TaskDto.class);
+        }
+        return null;
+    }
+
+
     public void createMockUserWithTask(){
         User alice = new User();
         alice.setName("mock user Alice");
@@ -89,7 +98,7 @@ public class UserService {
     }
 
     @Bean
-    public ModelMapper modelMapperBean()
+    public static ModelMapper modelMapperBean()
     {
         return new ModelMapper();
     }
