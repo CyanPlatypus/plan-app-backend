@@ -21,7 +21,7 @@ public class TaskCreateRequestValidator implements Validator {
             errors.rejectValue(taskDto.getNameFieldName(), PlanError.EMPTY.getDescription());
         }
 
-        if(taskDto.getFinishDateTime().isBefore(taskDto.getStartDateTime()))
-            errors.rejectValue(taskDto.getFinishDateTimeFieldName(), PlanError.FINISHBEFORESTART.getDescription());
+//        if(taskDto.getFinishDateTime().isBefore(taskDto.getStartDateTime()))
+//            errors.rejectValue(taskDto.getFinishDateTimeFieldName(), PlanError.FINISHBEFORESTART.getDescription());
     }
 }

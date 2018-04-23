@@ -59,7 +59,7 @@
 		<dependency>
 			<groupId>com.plan</groupId>
 			<artifactId>dtos</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <version>0.0.3-SNAPSHOT</version>
 		</dependency>
 		<!-- Spring Security OAuth2-->
 		<dependency>

@@ -11,8 +11,8 @@ public class TaskDto {
     private Integer id;
     private String name;
     private String description;
-    private LocalDateTime startDateTime;
-    private LocalDateTime finishDateTime;
+//    private LocalDateTime startDateTime;
+//    private LocalDateTime finishDateTime;
     private double plannedHours=0.0;
     private double actualHours=0.0;
     private boolean isFinished = false;
@@ -77,21 +77,21 @@ public class TaskDto {
         this.description = description;
     }
 
-    public LocalDateTime getStartDateTime() {
-        return startDateTime;
-    }
-
-    public void setStartDateTime(LocalDateTime startDateTime) {
-        this.startDateTime = startDateTime;
-    }
-
-    public LocalDateTime getFinishDateTime() {
-        return finishDateTime;
-    }
-
-    public void setFinishDateTime(LocalDateTime finishDateTime) {
-        this.finishDateTime = finishDateTime;
-    }
+//    public LocalDateTime getStartDateTime() {
+//        return startDateTime;
+//    }
+//
+//    public void setStartDateTime(LocalDateTime startDateTime) {
+//        this.startDateTime = startDateTime;
+//    }
+//
+//    public LocalDateTime getFinishDateTime() {
+//        return finishDateTime;
+//    }
+//
+//    public void setFinishDateTime(LocalDateTime finishDateTime) {
+//        this.finishDateTime = finishDateTime;
+//    }
 
     public double getPlannedHours() {
         return plannedHours;
