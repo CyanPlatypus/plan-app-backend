@@ -45,25 +45,26 @@ public class TaskController {
 
     @RequestMapping(value = "/tasks/add", method = RequestMethod.POST)
     @ResponseBody
-    public String addTask(@Valid @RequestBody TaskDto taskDto, Authentication authentication) {
+    public ResponseEntity addTask(@Valid @RequestBody TaskDto taskDto, Authentication authentication) {
         UserInfoDetails userInfoDetails = (UserInfoDetails) authentication.getPrincipal();
 
         if(taskDto!=null)
 //            userService.addTaskToTheUserOwnedList(taskDto,
 //                    planUserDetailsService.getUserIdByUserInfoId(userInfoDetails.getUiId()));
             userService.addTaskToTheUserOwnedList(taskDto,userInfoDetails.getUId());
-        return "task added";
+        //return "task added";
+        return ResponseEntity.status(HttpStatus.OK).body("Added");
     }
 
     @RequestMapping(value = "/tasks/edit", method = RequestMethod.PUT)
     @ResponseBody
-    public String editTask(@Valid @RequestBody TaskDto taskDto, Authentication authentication) {
+    public ResponseEntity editTask(@Valid @RequestBody TaskDto taskDto, Authentication authentication) {
         UserInfoDetails userInfoDetails = (UserInfoDetails) authentication.getPrincipal();
 
         if(taskDto!=null)
             userService.editTask(taskDto, userInfoDetails.getUId());
 
-        return "task added";
+        return  ResponseEntity.status(HttpStatus.OK).body("Edited");
     }
 
     @RequestMapping(value = "/tasks/{id}", method = RequestMethod.GET)

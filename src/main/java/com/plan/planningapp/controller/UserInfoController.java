@@ -40,9 +40,11 @@ public class UserInfoController {
 
     @RequestMapping(value = "/username", method = RequestMethod.GET)
     @ResponseBody
-    public String currentUserName(Authentication authentication) {
+    public ResponseEntity currentUserName(Authentication authentication) {
         UserInfoDetails userInfoDetails = (UserInfoDetails) authentication.getPrincipal();
-        return planUserDetailsService.getUserNameByUserInfoId(userInfoDetails.getUiId());
+
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(planUserDetailsService.getUserNameByUserInfoId(userInfoDetails.getUiId()));
     }
 
 
