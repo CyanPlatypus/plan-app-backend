@@ -43,17 +43,18 @@ public class TaskController {
         return null;
     }
 
-    @RequestMapping(value = "/tasks/add", method = RequestMethod.POST)
+    @RequestMapping(value = "/tasks", method = RequestMethod.POST)
     @ResponseBody
     public ResponseEntity addTask(@Valid @RequestBody TaskDto taskDto, Authentication authentication) {
         UserInfoDetails userInfoDetails = (UserInfoDetails) authentication.getPrincipal();
 
+        Integer id = null;
         if(taskDto!=null)
 //            userService.addTaskToTheUserOwnedList(taskDto,
 //                    planUserDetailsService.getUserIdByUserInfoId(userInfoDetails.getUiId()));
-            userService.addTaskToTheUserOwnedList(taskDto,userInfoDetails.getUId());
+             id = userService.addTaskToTheUserOwnedList(taskDto,userInfoDetails.getUId());
         //return "task added";
-        return ResponseEntity.status(HttpStatus.OK).body("Added");
+        return ResponseEntity.status(HttpStatus.OK).body(id.toString());
     }
 
     @RequestMapping(value = "/tasks/edit", method = RequestMethod.PUT)
@@ -61,10 +62,16 @@ public class TaskController {
     public ResponseEntity editTask(@Valid @RequestBody TaskDto taskDto, Authentication authentication) {
         UserInfoDetails userInfoDetails = (UserInfoDetails) authentication.getPrincipal();
 
-        if(taskDto!=null)
-            userService.editTask(taskDto, userInfoDetails.getUId());
+        if(taskDto!= null){
+            Integer id = taskDto.getId();
 
-        return  ResponseEntity.status(HttpStatus.OK).body("Edited");
+            if(id != null && userService.userIsTaskOwner(id, userInfoDetails.getUId())) {
+
+                userService.editTask(taskDto, userInfoDetails.getUId());
+                return ResponseEntity.status(HttpStatus.OK).body("Edited");
+            }
+        }
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Not edited");
     }
 
     @RequestMapping(value = "/tasks/{id}", method = RequestMethod.GET)

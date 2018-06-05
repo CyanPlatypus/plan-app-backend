@@ -39,18 +39,27 @@ public class UserService {
         userRepository.findById(id).ifPresent(user->{
             user.becomeAnOwnerOfTheTask(t); userRepository.save(user);
         });
-
         //Optional<User> op = userRepository.findById(id).map(user->user.becomeAnOwnerOfTheTask(t));
         //.save(u);
     }
 
-    public void addTaskToTheUserOwnedList(TaskDto tDto, Integer id){
+    public Integer addTaskToTheUserOwnedList(TaskDto tDto, Integer id){
         //ModelMapper modelMapper = new ModelMapper();
         Task t = modelMapper.map(tDto, Task.class);
         t.setId(null);
-        userRepository.findById(id).ifPresent(user->{
-            user.becomeAnOwnerOfTheTask(t); userRepository.save(user);
-        });
+//        userRepository.findById(id).ifPresent(user->{
+//            user.becomeAnOwnerOfTheTask(t); userRepository.save(user);
+//            taskRepository.save(t);
+//        });
+
+        Optional<User> optUser = userRepository.findById(id);
+        if (optUser.isPresent())
+        {
+            optUser.get().becomeAnOwnerOfTheTask(t);
+            return taskRepository.save(t).getId();
+        }
+
+        return t.getId();
     }
 
     public void editTask(TaskDto tDto, Integer userId){

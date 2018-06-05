@@ -37,7 +37,7 @@ public class CommentController {
         return taskCommentService.getComments(id);
     }
 
-    @RequestMapping(value = "/tasks/{id}/comments/add", method = RequestMethod.POST)
+    @RequestMapping(value = "/tasks/{id}/comments", method = RequestMethod.POST)
     @ResponseBody
     public ResponseEntity addComment(@Valid @RequestBody CommentDto commentDto,
                                      @PathVariable Integer id, Authentication authentication){
@@ -51,6 +51,12 @@ public class CommentController {
     @ResponseBody
     public ResponseEntity removeComment(@PathVariable Integer taskId,
                                         @PathVariable Integer id, Authentication authentication){
+        return removeCommentNoTaskId(id, authentication);
+    }
+
+    @RequestMapping(value = "/tasks/comments/{id}", method = RequestMethod.DELETE)
+    @ResponseBody
+    public ResponseEntity removeCommentNoTaskId(@PathVariable Integer id, Authentication authentication) {
         UserInfoDetails userInfoDetails = (UserInfoDetails) authentication.getPrincipal();
 
         if (taskCommentService.userIsCommentOwner(id, userInfoDetails.getUId())){
