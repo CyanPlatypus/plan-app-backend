@@ -74,12 +74,12 @@ public class UserService {
             taskRepository.save(t);
         });
 
-        Task t = modelMapper.map(tDto, Task.class);
+       /* Task t = modelMapper.map(tDto, Task.class);
 
         userRepository.findById(userId).ifPresent(user->{
             t.setOwnerUser(user);
             taskRepository.save(t);
-        });
+        });*/
 
     }
 
