@@ -45,6 +45,8 @@ public class Comment {
         this.id = id;
     }
 
+    public String getUserInfo(){ return user.getName();}
+
     public String getName() {
         return name;
     }

@@ -63,6 +63,17 @@ public class UserService {
     }
 
     public void editTask(TaskDto tDto, Integer userId){
+        Optional<Task> task = taskRepository.findById(tDto.getId());
+
+        task.ifPresent(t->{
+            t.setName( tDto.getName());
+            t.setActualHours(tDto.getActualHours());
+            t.setPlannedHours(tDto.getPlannedHours());
+            t.setDescription(tDto.getDescription());
+
+            taskRepository.save(t);
+        });
+
         Task t = modelMapper.map(tDto, Task.class);
 
         userRepository.findById(userId).ifPresent(user->{

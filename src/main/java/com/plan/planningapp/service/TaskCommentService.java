@@ -33,7 +33,9 @@ public class TaskCommentService {
         ArrayList<CommentDto> commDtos = new ArrayList<>();
 
         for (Comment com: comms) {
-            commDtos.add(modelMapper.map(com, CommentDto.class));
+            CommentDto cd = modelMapper.map(com, CommentDto.class);
+            cd.setName(com.getUserInfo());
+            commDtos.add(cd);
         }
 
         return commDtos;

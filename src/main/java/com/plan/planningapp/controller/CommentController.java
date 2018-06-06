@@ -34,6 +34,9 @@ public class CommentController {
     @RequestMapping(value = "/tasks/{id}/comments", method = RequestMethod.GET)
     @ResponseBody
     public  Iterable<CommentDto> getComments(@PathVariable Integer id, Authentication authentication){
+
+
+
         return taskCommentService.getComments(id);
     }
 
